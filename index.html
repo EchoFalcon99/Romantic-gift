@@ -1,123 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>For Bisma</title>
+  <meta charset="UTF-8">
+  <title>Surprise Gift for Bisma</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background: #1a1a1a;
-      color: white;
-      font-family: 'Arial', sans-serif;
-      overflow-x: hidden;
+      background-color: #fff0f5;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
+      padding: 50px;
+      display: none;
     }
-    h1 {
-      margin-top: 50px;
+    #countdown {
       font-size: 3em;
-      color: pink;
+      color: #e60073;
+      margin-top: 20%;
     }
-    p {
-      font-size: 1.3em;
-      margin: 10px auto;
-      max-width: 80%;
+    #welcome, #content {
+      display: none;
     }
-    .hearts {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-    .heart {
-      position: absolute;
-      color: pink;
-      font-size: 2em;
-      animation: float 5s infinite ease-in-out;
-    }
-    @keyframes float {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-    /* Read More Styles */
-    #more {display: none;}
-    #readBtn {
-      background-color: pink;
-      border: none;
-      padding: 8px 15px;
-      color: #1a1a1a;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 5px;
-      margin-top: 10px;
-      font-size: 1em;
-      transition: background-color 0.3s ease;
-    }
-    #readBtn:hover {
-      background-color: #ff66b2;
+    img {
+      margin-top: 20px;
+      border: 5px solid #ff99cc;
+      border-radius: 15px;
+      width: 300px;
     }
   </style>
 </head>
 <body>
-  <h1>For Bisma</h1>
-  <p>You are the most beautiful part of my world.</p>
 
-  <p>
-    This little surprise is just a small piece of what I feel for you.
-    <span id="dots">...</span><span id="more">  
-    Every moment spent with you is a treasure I cherish deeply.  
-    You bring light into my darkest days and joy into my heart.
-    </span>
-  </p>
+  <div id="countdown">5</div>
 
-  <button id="readBtn" onclick="toggleReadMore()">Read More</button>
+  <div id="welcome">
+    <h1>Welcome, <span id="nameDisplay"></span>!</h1>
+    <p>This is a surprise created with love!</p>
+  </div>
 
-  <p>Always yours, Saifu.</p>
-
-  <div class="hearts" id="hearts"></div>
+  <div id="content">
+    <h2>Happy Birthday Bisma!</h2>
+    <p>Wishing you joy, love, and endless surprises!</p>
+    <img src="IMG_20250504_WA0073.jpg" alt="Bisma's Pic">
+    <audio autoplay loop>
+      <source src="Happ_birthday_song!!!(256k).mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
 
   <script>
-    const heartsContainer = document.getElementById("hearts");
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerText = "♥";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = 4 + Math.random() * 3 + "s";
-      heartsContainer.appendChild(heart);
-      setTimeout(() => heart.remove(), 7000);
-    }
-    setInterval(createHeart, 300);
+    // Countdown
+    let count = 5;
+    const countdownEl = document.getElementById('countdown');
+    document.body.style.display = 'block';
 
-    // Read More Toggle Function
-    function toggleReadMore() {
-      const dots = document.getElementById("dots");
-      const moreText = document.getElementById("more");
-      const btnText = document.getElementById("readBtn");
+    const countdown = setInterval(() => {
+      count--;
+      countdownEl.textContent = count;
+      if (count === 0) {
+        clearInterval(countdown);
+        askName();
+      }
+    }, 1000);
 
-      if (dots.style.display === "none") {
-        dots.style.display = "inline";
-        btnText.innerText = "Read More";
-        moreText.style.display = "none";
+    // Prompt for name
+    function askName() {
+      countdownEl.style.display = 'none';
+      const name = prompt("What's your name?");
+      if (name && name.toLowerCase() === 'bisma') {
+        document.getElementById('nameDisplay').textContent = name;
+        document.getElementById('welcome').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('welcome').style.display = 'none';
+          document.getElementById('content').style.display = 'block';
+        }, 3000);
       } else {
-        dots.style.display = "none";
-        btnText.innerText = "Read Less";
-        moreText.style.display = "inline";
+        alert("This surprise is only for Bisma!");
       }
     }
   </script>
+
 </body>
 </html>
